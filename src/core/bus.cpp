@@ -52,7 +52,7 @@ extern "C" {
 #ifdef _WIN32
 _declspec(dllexport) uintptr_t RAM;
 _declspec(dllexport) u32 RAM_SIZE, RAM_MASK;
-_declspec(dllexport) uintptr_t VRAM;
+_declspec(dllexport) uintptr_t VRAM;  // Export VRAM for external tools
 _declspec(dllexport) u32 VRAM_SIZE;
 #else
 __attribute__((visibility("default"), used)) uintptr_t RAM;
