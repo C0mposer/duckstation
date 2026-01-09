@@ -52,13 +52,9 @@ extern "C" {
 #ifdef _WIN32
 _declspec(dllexport) uintptr_t RAM;
 _declspec(dllexport) u32 RAM_SIZE, RAM_MASK;
-_declspec(dllexport) uintptr_t VRAM;
-_declspec(dllexport) u32 VRAM_SIZE;
 #else
 __attribute__((visibility("default"), used)) uintptr_t RAM;
 __attribute__((visibility("default"), used)) u32 RAM_SIZE, RAM_MASK;
-__attribute__((visibility("default"), used)) uintptr_t VRAM;
-__attribute__((visibility("default"), used)) u32 VRAM_SIZE;
 #endif
 }
 
@@ -261,8 +257,6 @@ bool Bus::AllocateMemoryMap(bool export_shared_memory, Error* error)
 
 #ifndef __ANDROID__
   Exports::RAM = reinterpret_cast<uintptr_t>(g_unprotected_ram);
-  Exports::VRAM = reinterpret_cast<uintptr_t>(g_vram);
-  Exports::VRAM_SIZE = VRAM_SIZE;
 #endif
 
   return true;
@@ -274,8 +268,6 @@ void Bus::ReleaseMemoryMap()
   Exports::RAM = 0;
   Exports::RAM_SIZE = 0;
   Exports::RAM_MASK = 0;
-  Exports::VRAM = 0;
-  Exports::VRAM_SIZE = 0;
 #endif
 
   g_memory_handlers_isc = nullptr;
